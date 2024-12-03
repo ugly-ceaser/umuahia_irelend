@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Welcome to Umuahia Ireland Association{% endblock %}
+
+{% block content %}
+<section id="hero" class="hero">
+    <div class="hero-content">
+        <h1>Welcome to the Association of Umuahia People in Ireland</h1>
+        <p>Connecting and empowering our community.</p>
+        <a href="#about" class="btn">Learn More</a>
+    </div>
+</section>
+
+<section id="about" class="about">
+    <h2>About Us</h2>
+    <p>We are dedicated to fostering unity and development among Umuahia people living in Ireland.</p>
+    <p>Our mission is to create a strong network that supports growth, education, and culture.</p>
+</section>
+
+<section id="gallery" class="gallery">
+    <h2>Community Gallery</h2>
+    <p>Meet our members and see what we're up to.</p>
+    <div class="gallery-grid">
+        {% for user in users %}
+        <div class="gallery-item">
+            <img src="{{ user.profile_image.url }}" alt="{{ user.username }}">
+            <p>{{ user.username }}</p>
+        </div>
+        {% empty %}
+        <p>No images available yet. Be the first to upload!</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="donate" class="donate">
+    <h2>Support Our Work</h2>
+    <p>Your generous contributions enable us to organize events, offer resources, and empower our community.</p>
+    <a href="{% url 'core:donate' %}" class="btn">Donate Now</a>
+</section>
+{% endblock %}
