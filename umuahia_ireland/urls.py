@@ -13,8 +13,8 @@ urlpatterns = [
     path("", include("app.urls", namespace="app")),
     path("admin/", include("_admin.urls", namespace="_admin")),
     path("dashboard/", include("dashboard.urls", namespace="user:")),
-    path("accounts/", include("accounts.urls", namespace="accounts")),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path("auth/", include("accounts.urls", namespace="accounts")),
+    path("auth/", include("django.contrib.auth.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
