@@ -39,24 +39,42 @@ def user_register(request):
             password = request.POST.get("password")
             confirmPassword = request.POST.get("confirmPassword")
 
+            print(
+                f"""
+                    User Data:
+                    {phone_number}
+                    {email}
+                    {password}
+                    {confirmPassword}
+                """
+            )
+
             # Hash the password
             hashed_password = make_password(password)
+            print(f"Hashed password: {hashed_password}")
 
+            print("Checking one1")
             # Check if email already exists
             if CustomUser.objects.filter(email=email).exists():
+                print("Email already exists")
                 messages.error(request, message="Email already exists!")
 
+            print("Checking two")
             # Check if phone number already exists
             if CustomUser.objects.filter(phone_number=phone_number).exists():
+                print("Phone number already exists")
                 messages.error(
                     request,
                     message="Phone number is already linked to a different account!",
                 )
 
+            print("Checking three")
             # Check if passwords match
             if password != confirmPassword:
+                print("Password mismatch")
                 messages.error(request, message="Passwords do not match!")
 
+            print("Checking four")
             with transaction.atomic():
                 # Create a new user
                 new_user = CustomUser.objects.create(
@@ -64,8 +82,8 @@ def user_register(request):
                     phone_number=phone_number,
                     password=hashed_password,
                 )
+                print(f"New User: {new_user}")
                 new_user.save()
-                login(request, new_user)  # Log the user in
 
                 # Send welcome email
                 subject = f"🎉 Welcome to {APP_NAME} {new_user.first_name} {new_user.last_name} {new_user.email}!"
@@ -79,7 +97,7 @@ def user_register(request):
                 body = render_to_string("email/welcome.html", context)
                 send_verification_email(new_user, subject, "", token, body)
 
-            return redirect(reverse("dashboard:dashboard"))
+            return redirect(reverse("accounts:verificaton_email_sent"))
 
         except Exception as e:
             messages.error(request, message="An error occurred!")

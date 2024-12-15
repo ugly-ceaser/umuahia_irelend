@@ -5,6 +5,7 @@ __pycache__/
 
 # Ignore the virtual environment directory (if using virtualenv)
 venv/
+virtualenv/
 
 # Ignore database files
 db.sqlite3
