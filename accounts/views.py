@@ -53,13 +53,11 @@ def user_register(request):
             hashed_password = make_password(password)
             print(f"Hashed password: {hashed_password}")
 
-            print("Checking one1")
             # Check if email already exists
             if CustomUser.objects.filter(email=email).exists():
                 print("Email already exists")
                 messages.error(request, message="Email already exists!")
 
-            print("Checking two")
             # Check if phone number already exists
             if CustomUser.objects.filter(phone_number=phone_number).exists():
                 print("Phone number already exists")
@@ -67,14 +65,14 @@ def user_register(request):
                     request,
                     message="Phone number is already linked to a different account!",
                 )
+                return render(request, "regist`ration/register.html")
 
-            print("Checking three")
             # Check if passwords match
             if password != confirmPassword:
                 print("Password mismatch")
                 messages.error(request, message="Passwords do not match!")
+                return render(request, "registration/register.html")
 
-            print("Checking four")
             with transaction.atomic():
                 # Create a new user
                 new_user = CustomUser.objects.create(
@@ -93,6 +91,7 @@ def user_register(request):
                     "APP_NAME": APP_NAME,
                     "APP_URL": APP_URL,
                     "VERIFICATION_URL": verification_link,
+                    "new_user": new_user,
                 }
                 body = render_to_string("email/welcome.html", context)
                 send_verification_email(new_user, subject, "", token, body)
@@ -100,6 +99,7 @@ def user_register(request):
             return redirect(reverse("accounts:verificaton_email_sent"))
 
         except Exception as e:
+            print(e)
             messages.error(request, message="An error occurred!")
     return render(request, "registration/register.html")
 
@@ -186,6 +186,8 @@ def user_login(request):
             # Retrieve data from POST request
             email = request.POST.get("email")
             password = request.POST.get("password")
+
+            print(f"Email: {email} Password: {password}")
 
             # Get the user by email
             user = get_object_or_404(CustomUser, email=email)

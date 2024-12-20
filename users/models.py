@@ -26,31 +26,31 @@ aware_datetime = timezone.make_aware(
 class UserProfileManager(BaseUserManager):
     """Manager for user profiles"""
 
-    def create_user(self, email, phone_number, password=None):
+    def create_user(self, email, phone_number, password=None, **extra_fields):
         """Create a new user profile"""
         if not email:
             raise ValueError("User must have an email address")
-
         if not phone_number:
             raise ValueError("User must have a phone number")
 
         email = self.normalize_email(email)
-        user = self.model(email=email, phone_number=phone_number)
-
+        user = self.model(email=email, phone_number=phone_number, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
-
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, phone_number, password=None, **extra_fields):
         """Create a new superuser profile"""
-        user = self.create_user(email, password)
-        user.is_superuser = True
-        user.is_staff = True
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_active", True)
 
-        user.save(using=self._db)
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True.")
 
-        return user
+        return self.create_user(email, phone_number, password, **extra_fields)
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -59,6 +59,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=20, default="")
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
+    position = models.CharField(
+        max_length=255,
+        choices=(("member", "Member"), ("staff", "Staff")),
+        default="member",
+    )
     verification_token = models.CharField(max_length=64, blank=True, null=True)
     token_created_at = models.DateTimeField(blank=True, null=True)
     is_verified = models.BooleanField(default=False)
@@ -69,7 +74,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = UserProfileManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []  # Add 'first_name', 'last_name', or other required fields here
+    REQUIRED_FIELDS = ["phone_number"]
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}".strip()
@@ -78,4 +83,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.first_name
 
     def __str__(self):
-        return f"User: {self.email}"
+        return f"{self.position}: {self.email}"

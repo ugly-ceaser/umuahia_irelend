@@ -22,9 +22,16 @@
                 </div>
             </div>
             <div class="col-lg-6">
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li class="alert alert">{{message}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
                 <div class="login_form_inner">
                     <h3>Login to continue</h3>
-                    <form class="row login_form" method="post" id="contactForm">
+                    <form class="row login_form" method="post" id="contactForm" action="{% url 'accounts:login' %}">
                         {% csrf_token %}
                         <div id="login-errors" class="col-md-12 form-group text-danger"></div>
                         <div class="col-md-12 form-group">

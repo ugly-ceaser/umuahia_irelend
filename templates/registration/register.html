@@ -5,6 +5,13 @@
 {% block content %}
 <section class="register-section">
     <h1>Register</h1>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li class="alert alert">{{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <form action="{% url 'accounts:register' %}" method="POST">
         {% csrf_token %}
         <label for="email">Email Address:</label>

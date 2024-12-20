@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from .decorators import validation_required
 
 
-# Create your views here.
+@validation_required
 def dashboard(request):
     return render(request, "dashboard/index.html")
