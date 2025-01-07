@@ -3,25 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="./home.css">
     <title>Document</title>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img class="logopic" src="../img/logo.png" alt="">
+            <img class="logopic" src="./img/logo.png" alt="Logo">
         </div>
-        <div>
-            <ul class="nav-link"> 
+        <div class="nav-link">
+            <li><a href="#">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="/">Login</a></li>
+        </div>
+        <div class="btn">
+            <button>Donate</button>
+        </div>
+        <label for="toggle-menu" class="menu-icon">&#9776;</label>
+        <input type="checkbox" id="toggle-menu">
+        <div class="dropdown">
+            <label for="toggle-menu" class="close-icon">&times;</label>
+            <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#contact">Contact Us</a></li>
                 <li><a href="/">Login</a></li>
             </ul>
-        </div>
-        <div class="btn">
-            <button>Donate</button>
+            <div class="btn">
+                <button>Donate</button>
+            </div>
         </div>
     </nav>
 
@@ -57,6 +70,21 @@
                 <button>Join us today</button>
             </div>
            </div>
+        </div>
+    </section>
+    <section class="body">
+        <div class="container">
+            <div class="content">
+                <h1>To Make A Change</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis architecto impedit qui, 
+                    autem quos, quas aut sunt ab, similique nam fugiat. Laboriosam nesciunt obcaecati ipsum nam?
+                     Voluptates repellendus alias aspernatur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                     Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+                <button>Click Me</button>
+            </div>
+            <div class="image">
+                <img src="./img/image.png" alt="Placeholder Image">
+            </div>
         </div>
     </section>
 </body>
