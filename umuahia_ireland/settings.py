@@ -1,78 +1,137 @@
 import os
 from pathlib import Path
+from .config import (
+    SECRET_KEY,
+    DEBUG,
+    DB_NAME,
+    ALLOWED_HOSTS,
+    DB_USER,
+    DB_PASSWORD,
+    DB_HOST,
+    DB_PORT,
+    EMAIL_HOST_USER,
+    EMAIL_HOST_PASSWORD,
+    APP_NAME,
+    APP_URL,
+    EMAIL_BACKEND,
+    EMAIL_HOST,
+    EMAIL_PORT,
+    EMAIL_USE_TLS,
+    FRONTEND_URL,
+)
 
-# Base project directory
+APP_NAME = APP_NAME
+APP_URL = APP_URL
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Secret Key for production, change this for your actual project
-SECRET_KEY = 'your-secret-key-here'
+SECRET_KEY = SECRET_KEY
 
-# Debug mode (set to False for production)
-DEBUG = True
+DEBUG = DEBUG
 
-# Allowed Hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = list(ALLOWED_HOSTS)
 
-# Installed apps
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'accounts',
-    'core',
-    'dashboard',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    # Local apps
+    "app.apps.AppConfig",
+    "_admin.apps.AdminConfig",
+    "dashboard.apps.DashboardConfig",
+    "users.apps.UsersConfig",
 ]
 
-# Middleware configuration
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# Root URL configuration
-ROOT_URLCONF = 'umuahia_ireland.urls'
+ROOT_URLCONF = "umuahia_ireland.urls"
 
-# Templates configuration
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Template directory
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-# Database configuration
+WSGI_APPLICATION = "umuahia_ireland.wsgi.application"
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": DB_NAME,
+        "USER": DB_USER,
+        "PASSWORD": DB_PASSWORD,
+        "HOST": DB_HOST,
+        "PORT": DB_PORT,
     }
 }
 
-# Static files (CSS, JS, Images)
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
+]
 
-# Media files (for user uploads)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+LANGUAGE_CODE = "en-us"
 
-# Default auto field for model IDs
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+TIME_ZONE = "UTC"
+
+USE_I18N = True
+
+USE_TZ = True
+
+STATIC_URL = "/static/"
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR / "static"),)
+
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR / "staticfiles")
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR / "media")
+
+LOGIN_URL = "accounts:user_login_page"
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+DEFAULT_EMAIL = EMAIL_HOST_USER
+
+AUTH_USER_MODEL = "users.CustomUser"
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "ifeanyionyekwelu786@gmail.com"
+EMAIL_HOST_PASSWORD = "xyak naov xftd czwa"
+
+FRONTEND_URL = FRONTEND_URL
