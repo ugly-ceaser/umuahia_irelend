@@ -77,14 +77,15 @@ WSGI_APPLICATION = "umuahia_ireland.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": DB_NAME,
-        "USER": DB_USER,
-        "PASSWORD": DB_PASSWORD,
-        "HOST": DB_HOST,
-        "PORT": DB_PORT,
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": DB_NAME,  
+        "USER": DB_USER,  
+        "PASSWORD": DB_PASSWORD,  
+        "HOST": DB_HOST,  
+        "PORT": '3306',  
     }
 }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
