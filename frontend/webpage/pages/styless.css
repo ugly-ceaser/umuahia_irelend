@@ -1,0 +1,460 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    width: 100vw;
+    height: 110vh;
+    background: white;
+}
+
+/* Left Side Image */
+.image-section {
+    width: 50%;
+    height: 100%;
+}
+
+.image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Right Side Form */
+.form-section {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Logo */
+.logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+/* Heading & Subtext */
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.subtext {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+label {
+    font-size: 14px;
+    color: #444;
+    font-weight: bold;
+}/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f9f9f9;
+    overflow: hidden;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+}
+
+/* Left Side Image */
+.image-section {
+    width: 50%;
+    height: 100%;
+}
+
+.image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Right Side Form */
+.form-section {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    width: 80%;
+    max-width: 440px;
+    text-align: center;
+}
+
+/* Heading & Subtext */
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+label {
+    font-size: 14px;
+    color: #444;
+    font-weight: bold;
+}
+
+/* Input Fields */
+.input-container {
+    position: relative;
+}
+
+input {
+    padding: 12px;
+    border: 1px solid #d1a7a7;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    padding-right: 40px;
+    outline: none;
+}
+
+/* Password Toggle Eye Icon */
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    font-size: 18px;
+}
+
+/* Primary Button */
+.btn {
+    background-color: #d4a53f;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #c29635;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    width: 350px;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Circular Icon for Confirmation */
+.icon-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.icon-container img {
+    border-radius: 50%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .image-section {
+        width: 100%;
+        height: 40%;
+    }
+
+    .form-section {
+        width: 100%;
+        height: 60%;
+    }
+
+    .form-box {
+        width: 90%;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-content {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+
+/* Input Fields */
+.input-container {
+    position: relative;
+}
+
+input {
+    padding: 12px;
+    border: 1px solid #d1a7a7;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    padding-right: 40px;
+    outline: none;
+}
+
+/* Password Toggle Eye Icon */
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    font-size: 18px;
+}
+
+/* Remember Me & Forgot Password */
+
+.extras {
+    display: flex;
+    align-items: center; 
+    font-size: 14px;
+    margin-bottom: 10px;
+    gap: 5px; 
+}
+
+
+.extras input[type="checkbox"] {
+    width: 14px; 
+    height: 14px; 
+    cursor: pointer;
+}
+
+
+.extras a {
+    color: #d1a7a7;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: auto; 
+}
+
+.extras a:hover {
+    text-decoration: underline;
+}
+
+
+/* Primary Button */
+.btn {
+    background-color: #d4a53f;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #c29635;
+}
+
+/* Signup Link */
+.signup {
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.signup a {
+    color: #d1a7a7;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup a:hover {
+    text-decoration: underline;
+}
+
+/* Forgot Password Page */
+.forgot-password-box {
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.forgot-password-box h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.forgot-password-box p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.forgot-password-box input {
+    padding: 12px;
+    border: 1px solid #d1a7a7;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* Full-Width Button for Forgot Password */
+.forgot-password-box .btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 17px;
+}
+
+.icon-circle {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-circle i {
+    font-size: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .image-section {
+        width: 100%;
+        height: 40%;
+    }
+
+    .form-section {
+        width: 100%;
+        height: 60%;
+    }
+
+    .form-box {
+        width: 90%;
+    }
+}
+.modelParagraph{
+    margin-top: 20px;
+}
+.modelpa{
+    margin-bottom: 30px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-box {
+    animation: fadeIn 0.10s ease-in-out;
+}
