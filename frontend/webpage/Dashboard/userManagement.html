@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Management</title>
-    <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="../css/user.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
@@ -46,7 +46,7 @@
                     <h1>Hi Ayora!</h1>
                     <p>Good afternoon</p>
                 </div>
-                <button class="create-btn">Create Member</button>
+                <a href="afterCreate.html"><button class="create-btn">Create Member</button></a>
             </div>
 
             <!-- Stats Cards -->
@@ -90,69 +90,11 @@
                     <button class="active">Members</button>
                     <button>Projects</button>
                 </div>
-                <div class="members-header">
-                    <h2>Members</h2>
-                    <a href="members.html" class="view-all">
-                        View All <i class="fas fa-arrow-right"></i>
-                    </a>
+                <div class="members-list">
+                    <img src="../img/user.png" alt="No Members">
+                    <h2>No Members Registered</h2>
+                    <p>Currently, there are no Members in the system.</p>
                 </div>
-
-                <div class="members-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email Address</th>
-                                <th>Position</th>
-                                <th>Date Registered</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="member-info">
-                                        <img src="profile.jpg" alt="Profile">
-                                        <span>Anjola Mary</span>
-                                    </div>
-                                </td>
-                                <td>Bennsamuel@gmail.com</td>
-                                <td>Member</td>
-                                <td>9/15/2023</td>
-                                <td><span class="status available">● Available</span></td>
-                                <td><i class="fas fa-ellipsis-v"></i></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="member-info">
-                                        <img src="profile.jpg" alt="Profile">
-                                        <span>Anjola Mary</span>
-                                    </div>
-                                </td>
-                                <td>Bennsamuel@gmail.com</td>
-                                <td>Member</td>
-                                <td>9/15/2023</td>
-                                <td><span class="status available">● Available</span></td>
-                                <td><i class="fas fa-ellipsis-v"></i></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="member-info">
-                                        <img src="profile.jpg" alt="Profile">
-                                        <span>Anjola Mary</span>
-                                    </div>
-                                </td>
-                                <td>Bennsamuel@gmail.com</td>
-                                <td>Member</td>
-                                <td>9/15/2023</td>
-                                <td><span class="status available">● Available</span></td>
-                                <td><i class="fas fa-ellipsis-v"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
             </section>
         </main>
     </div>
@@ -178,7 +120,7 @@
                 });
             });
         });
-        </script>
+</script>
         
 </body>
 </html>

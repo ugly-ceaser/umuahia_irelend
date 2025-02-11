@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="styless.css">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="../css/auth.css">
 </head>
 <body>
 
@@ -18,8 +18,10 @@
         <div class="form-section">
             <div class="form-box">
                 <img src="../img/logo.png" alt="Logo" class="logo">
-                <h2>Log in into your account</h2>
-                <p class="subtext">Enter your account login details correctly</p>
+                <h2>Sign up</h2>
+                <p class="subtext">Register to join the association. Already Registered? 
+                    <a href="signin.html">Login</a>
+                </p>
 
                 <form>
                     <label>Email</label>
@@ -34,20 +36,28 @@
                         <span class="password-toggle" onclick="togglePassword('password')">👁</span>
                     </div>
 
-                    <div class="extras">
-                        <input type="checkbox" id="remember-me">
-                        <label for="remember-me">Remember me</label>
-                        <a href="forgot-password.html">Forgot Password?</a>
+                    <label>Confirm Password</label>
+                    <div class="input-container">
+                        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                        <span class="password-toggle" onclick="togglePassword('confirmPassword')">👁</span>
                     </div>
+
                     <button type="submit" class="btn">Proceed</button>
                 </form>
-
-                <p class="signup">Don’t have an account? 
-                    <a href="signup.html">Sign up</a>
-                </p>
             </div>
         </div>
     </div>
 
 </body>
+<script>
+    function togglePassword(inputId) {
+        const passwordField = document.getElementById(inputId);
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
+    
+</script>
 </html>
