@@ -29,19 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const filterItems = document.querySelectorAll(".filter-option");
     const tableRows = document.querySelectorAll("#memberTable tbody tr");
 
-    const sidebar = document.querySelector(".sidebar");
-    const menuToggle = document.querySelector(".menu-toggle");
-
-    menuToggle.addEventListener("click", function() {
-        sidebar.classList.toggle("active");
-    });
-
-    // Close sidebar when clicking outside
-    document.addEventListener("click", function(event) {
-        if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
-            sidebar.classList.remove("active");
-        }
-    });
+    function toggleSidebar() {
+        document.querySelector(".sidebar").classList.toggle("active");
+    }
+    
     
     let selectedUserRow = null;
     let selectedStatus = null;
