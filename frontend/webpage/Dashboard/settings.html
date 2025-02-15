@@ -203,7 +203,6 @@ document.querySelector(".notification-icon").addEventListener("click", function 
     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 });
 
-// Close dropdown if clicked outside
 document.addEventListener("click", function (event) {
     var dropdown = document.getElementById("notifications-dropdown");
     var icon = document.querySelector(".notification-icon");
@@ -213,9 +212,8 @@ document.addEventListener("click", function (event) {
     }
 });
 
-// Bind update password button click
 document.querySelector(".update-btn").addEventListener("click", updatePassword);
 
-    </script>
+</script>
 </body>
 </html>
