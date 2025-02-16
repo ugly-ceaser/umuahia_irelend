@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Management</title>
+    <link rel="stylesheet" href="../css/user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../img/logo.png" alt="Logo">
+            </div>
+            <ul class="menu">
+                <a href="/"><li class="menu-item active"><i class="fas fa-users"></i> Profile</li></a>
+                <a href="/min"><li class="menu-item"><i class="fas fa-book"></i> Minutes</li></a>
+            </ul>
+            <div class="bottom-menu">
+                <a href="/set"><li class="menu-item"><i class="fas fa-cog"></i> Settings</li></a>
+                <a href="signin.html"><li class="menu-item logout"><i class="fas fa-sign-out-alt"></i> Logout</li></a>
+            </div>            
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <header>
+                <h2>Member Management</h2>
+                <div class="user-info">
+                    <img src="profile.jpg" alt="User">
+                    <div>
+                        <p class="name">Ayora Nuel</p>
+                        <p class="role">Super Admin</p>
+                    </div>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </div>
+            </header>
+
+            <!-- Greeting Section -->
+            <div class="under">
+                <div class="greeting">
+                    <h1>Hi Ayora!</h1>
+                    <p>Good afternoon</p>
+                </div>
+                <button class="create-btn" id="openCreateMinutes">Create Minutes</button>
+            </div>
+
+            <!-- Stats Cards -->
+            <section class="stats">
+                <div class="card yellow">
+                    <div class="card-content">
+                        <h3>Total Members</h3>
+                        <p>2,500</p>
+                        <span>+23% since last month</span>
+                    </div>
+                    <div class="icon-container">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <div class="card green">
+                    <div class="card-content">
+                        <h3>Events</h3>
+                        <p>400</p>
+                        <span>+23% since last month</span>
+                    </div>
+                    <div class="icon-container">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                </div>
+                <div class="card red">
+                    <div class="card-content">
+                        <h3>Minutes</h3>
+                        <p>10</p>
+                        <span>+23% since last month</span>
+                    </div>
+                    <div class="icon-container">
+                        <i class="fas fa-book"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Members Section -->
+            <section class="members">
+                <div class="tabs">
+                    <button>Members</button>
+                    <button class="active">Projects</button>
+                </div>
+                <div class="members-list">
+                    <img src="../img/user.png" alt="No Members">
+                    <h2>No Minutes are uploaded</h2>
+                    <p>Currently, there are no current minutes.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- "Create Minutes" Modal -->
+    <div id="createMinutesModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Create Minutes</h3>
+            <p>This information will be used to create Minutes</p>
+
+            <form id="minutesForm">
+                <label for="minutesTitle">Minutes Title*</label>
+                <input type="text" id="minutesTitle" placeholder="Enter minutes title">
+
+                <label for="minutesDate">Minutes Date*</label>
+                <input type="date" id="minutesDate">
+
+                <label for="aboutMinutes">About the Minutes</label>
+                <textarea id="aboutMinutes" placeholder="Type here"></textarea>
+
+                <label for="minutesDescription">Minutes Description</label>
+                <textarea id="minutesDescription" placeholder="Type here"></textarea>
+
+                <div class="modal-footer">
+                    <button type="button" class="save-btn">Save as Draft</button>
+                    <button type="submit" class="publish-btn">Save and Publish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <img id="toast-icon" src="../img/checks.png" alt="Success" class="toast-icon">
+        <div class="toast-content">
+            <h4 id="toast-title">Success</h4>
+            <p id="toast-message"></p>
+        </div>
+        <button class="close-btn" onclick="hideToast()">×</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const createButton = document.getElementById("openCreateMinutes");
+            const modal = document.getElementById("createMinutesModal");
+            const form = document.getElementById("minutesForm");
+            const toast = document.getElementById("toast");
+
+            function showToast(title, message, isSuccess = true) {
+                const toastTitle = document.getElementById("toast-title");
+                const toastMessage = document.getElementById("toast-message");
+                const toastIcon = document.getElementById("toast-icon");
+
+                toastTitle.textContent = title;
+                toastMessage.textContent = message;
+
+                if (isSuccess) {
+                    toast.classList.remove("error");
+                    toast.classList.add("success");
+                    toastIcon.src = "../img/checks.png";
+                } else {
+                    toast.classList.remove("success");
+                    toast.classList.add("error");
+                    toastIcon.src = "../img/errors.png"; 
+                }
+
+                toast.classList.add("show");
+
+                setTimeout(() => {
+                    hideToast();
+                }, 5000);
+            }
+
+            function hideToast() {
+                toast.classList.remove("show");
+            }
+
+            function openModal() {
+                modal.style.display = "flex";
+            }
+
+            function closeModal() {
+                modal.style.display = "none";
+                form.reset();
+            }
+
+            createButton?.addEventListener("click", openModal);
+            document.querySelector(".close")?.addEventListener("click", closeModal);
+
+            window.addEventListener("click", function (event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+            form?.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const title = document.getElementById("minutesTitle").value.trim();
+                const date = document.getElementById("minutesDate").value.trim();
+
+                if (!title || !date) {
+                    showToast("Error", "Please fill in all required fields!", false);
+                    return;
+                }
+
+                showToast("Success", "Minutes successfully published!", true);
+
+                setTimeout(() => {
+                    closeModal();
+                }, 2000);
+            });
+        });
+    </script>
+
+</body>
+</html>
