@@ -3,7 +3,148 @@
 
 {% block title %}Home{% endblock %}
 
-
 {% block content %}
-<h1>Home Page</h1>
+<section class="h-screen" id="hero">
+    <div class="container flex items-center justify-center py-10 h-full">
+        <div class="w-full md:w-3/4">
+            <div class="flex items-center flex-col text-center space-y-5">
+                <h1 class="text-4xl md:text-6xl font-semibold md:font-extrabold text-white">Umuahia <br> community
+                    Ireland
+                </h1>
+                <h2 class="px-5 py-2 text-md text-white font-semibold rounded-sm bg-primary w-fit">"Togetherness is
+                    power"
+                </h2>
+                <p class="text-white w-full md:w-1/2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut
+                    consequuntur
+                    laudantium
+                    nulla
+                    culpa ut
+                    placeat amet? Culpa odio
+                    harum blanditiis deleniti magni commodi totam obcaecati ex aliquam enim, at necessitatibus!
+                </p>
+
+                <div class="flex items-center justify-between space-x-5">
+                    <a href=""
+                        class="px-10 py-2 rounded-sm bg-primary text-white font-semibold text-sm block w-fit uppercase">Register</a>
+                    <a href=""
+                        class="px-10 py-2 rounded-sm bg-primary text-white font-semibold text-sm block w-fit uppercase">Donate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="h-fit flex items-center justify-center">
+    <div class="container flex md:flex-row flex-col">
+        <div class="w-full md:w-1/2 flex items-center justify-between">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Map" class="w-full h-full object-cover rounded-br-[250px]">
+        </div>
+
+        <div class="w-full md:w-1/2 space-y-2 p-10 flex items-center justify-center">
+            <div class="w-full md:w-3/4 space-y-6">
+                <h1 class="text-4xl md:text-[3rem] font-semibold text-black mb-7 md:mb-16">About Us</h1>
+                <p class="text-md">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus laborum quos
+                    quae,
+                    dignissimos eveniet minus error ex?
+                    Voluptatibus quae facilis est perspiciatis expedita, tempore debitis ratione labore hic magnam
+                    velit?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus laborum quos quae,
+                    dignissimos eveniet minus error ex?
+                    Voluptatibus quae facilis est perspiciatis expedita, tempore debitis ratione labore hic magnam
+                    velit?
+                </p>
+                <a href=""
+                    class="px-10 py-2 rounded-sm bg-primary text-white font-semibold text-sm block w-fit uppercase">Join
+                    Us Today</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="change" class="h-fit flex items-center justify-center p-10">
+    <div class="container flex md:flex-row flex-col">
+        <div class="w-full md:w-1/2 space-y-2 md:p-10 flex items-center justify-center">
+            <div class="w-full md:w-3/4">
+                <h1 class="text-4xl md:text-[2rem] font-semibold text-black mb-3">To Make A Change</h1>
+                <p>
+                    et pellentesque porttitor odio dui. Erat sit platea vitae in parturient egestas etiam. Ornare vitae
+                    orci maecenas adipiscing dolor facilisis habitassbendu
+                </p>
+                <a href=""
+                    class="mt-10 md:mt-20 px-10 py-2 rounded-sm bg-primary text-white font-semibold text-sm block w-fit uppercase">Donate</a>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 p-2 flex items-center justify-center">
+            <img src="{% static 'img/make-a-change.png' %}" alt="Map" class="w-full md:w-[400px] object-cover">
+        </div>
+    </div>
+</section>
+
+<section id="gallery" class="h-fit flex items-center justify-center p-10">
+    <div class="container space-y-6 text-center flex items-center flex-col">
+        <h1 class="text-4xl font-semibold text-[#4A4646]">Gallery</h1>
+        <p class="text-sm w-full md:w-3/4">
+            Allow yourself to be enveloped by the timeless elegance of eternal love: immerse your senses in our
+            carefully curated collection of exqet pellentesque porttitor odio dui. Erat sit platea vitae in parturient
+            egestas etiam. Ornare vitae orci maecenas adipiscing dolor facilisis habitasse mat
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 1">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 3">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 3">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 3">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 3">
+            <img src="{% static 'img/map-woman.jpg' %}" alt="Gallery 6">
+        </div>
+    </div>
+</section>
+
+<section class="h-fit flex items-center justify-center" id="contact">
+    <div class="container flex flex-col md:flex-row items-center justify-center min-h-screen bg-white">
+        <div class="md:w-1/2 w-full flex flex-col items-start md:p-10">
+            <h2 class="text-4xl font-bold text-[#99414A]">
+                Get in Touch
+            </h2>
+            <p class="text-gray-500 mt-2">
+                Fill out the form below or contact us by email or phone
+            </p>
+            <img src="{% static 'img/contact.png' %}" alt="Contact Us Image" class="mt-6 w-full h-auto" />
+        </div>
+
+        <div class="w-full md:w-1/2 p-3 flex items-center justify-center">
+            <form class="space-y-6 w-3/4 bg-[#F8F0D0] p-8 rounded-sm">
+                <div>
+                    <label class="block text-gray-700">Name</label>
+                    <input type="text" placeholder="Enter your name"
+                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                </div>
+
+                <div>
+                    <label class="block text-gray-700">Surname</label>
+                    <input type="text" placeholder="Enter your surname"
+                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                </div>
+
+                <div>
+                    <label class="block text-gray-700">Email</label>
+                    <input type="email" placeholder="Enter your email"
+                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                </div>
+
+                <div>
+                    <label class="block text-gray-700">Message</label>
+                    <textarea placeholder="Enter your message"
+                        class="w-full px-4 py-2 mt-2 border rounded-md h-32 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-[#99414A] text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                    Send
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

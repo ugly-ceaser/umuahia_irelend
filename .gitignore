@@ -37,3 +37,5 @@ __pycache__/
 settings_local.py
 
 /media/
+
+node_modules/

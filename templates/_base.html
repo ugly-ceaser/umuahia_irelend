@@ -12,16 +12,82 @@
         Umuahia Ireland | {% block title %}{%endblock title %}
     </title>
 
-    {% block additional_links %}
-    {% endblock additional_links %}
-
-    {% block customstyle %}
-    {% endblock customstyle %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
 <body>
+    <header class="w-full bg-white" id="header">
+        <div class="container mx-auto flex justify-between items-center py-2">
+            <div>
+                <a href="">
+                    <img class="w-14" src="{% static 'img/logo.png' %}">
+                </a>
+            </div>
+
+            <nav class="hidden md:block">
+                <ul class="w-full flex items-center space-x-7 font-medium text-md">
+                    <li><a href="#" class="text-black hover:text-primary hover:underline">Home</a></li>
+                    <li><a href="#about" class="text-black hover:text-primary hover:underline">About Us</a></li>
+                    <li><a href="#gallery" class="text-black hover:text-primary hover:underline">Gallery</a></li>
+                    <li><a href="#contact" class="text-black hover:text-primary hover:underline">Contact Us</a></li>
+                    <li><a href="{% url 'accounts:login' %}"
+                            class="text-black hover:text-primary hover:underline">Login</a></li>
+                </ul>
+            </nav>
+
+            <a href="" class="px-4 py-1 rounded-sm text-white font-medium text-sm bg-primary">Donate</a>
+        </div>
+    </header>
+
     {% block content %}
     {% endblock content %}
+
+    <footer class="footer">
+        <div class="top-section">
+            <div class="abouts">
+                <h3>NEWSLETTER SUBSCRIBE</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut elit vel ligula.</p>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Email">
+                <button>Send</button>
+            </div>
+            <div class="social-media">
+                <a href="#" class="social-icon"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="bottom-section">
+            <div class="logo">
+                <img src="./webpage/img/logo.png" alt="Logo">
+            </div>
+            <div class="footer-list">
+                <h4>PHONE AND EMAIL</h4>
+                <div class="para">
+                    <p>helloumahia@gmail.com</p>
+                    <p>+234 8066 008 669</p>
+                </div>
+                <div class="btn">
+                    <button>Donate</button>
+                </div>
+            </div>
+            <div class="nav-links">
+                <h4>PAGES</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="./webpage/Auth/signin.html">Login</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="last">
+            <h4>copyright 2024. all rights reserved</h4>
+        </div>
+    </footer>
 </body>
 
 </html>
