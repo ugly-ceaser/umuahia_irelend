@@ -4,24 +4,9 @@ from django.contrib.auth.models import (
     PermissionsMixin,
     BaseUserManager,
 )
-
-from django.utils import timezone
-import datetime
+from django.utils.timezone import now
 import uuid
-
-now = timezone.now()
-naive_datetime = datetime.datetime(
-    year=now.year,
-    month=now.month,
-    day=now.day,
-    hour=now.hour,
-    minute=now.minute,
-    second=now.second,
-)
-aware_datetime = timezone.make_aware(
-    naive_datetime, timezone=timezone.get_current_timezone()
-)
-
+from django.utils.crypto import get_random_string
 
 class UserProfileManager(BaseUserManager):
     """Manager for user profiles"""
@@ -67,9 +52,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     verification_token = models.CharField(max_length=64, blank=True, null=True)
     token_created_at = models.DateTimeField(blank=True, null=True)
     is_verified = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    date_joined = models.DateTimeField(default=aware_datetime)
+    date_joined = models.DateTimeField(default=now)
 
     objects = UserProfileManager()
 
@@ -84,3 +69,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.position}: {self.email}"
+
+    def generate_verification_token(self):
+        self.verification_token = get_random_string(64)
+        self.token_created_at = now()
+        self.save()

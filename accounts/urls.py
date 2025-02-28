@@ -5,6 +5,7 @@ from .views import (
     user_logout,
     verificaton_email_sent,
     verify_account,
+    resend_verification_email
 )
 
 app_name = "accounts"
@@ -16,6 +17,11 @@ urlpatterns = [
         "verification/email/sent/",
         verificaton_email_sent,
         name="verificaton_email_sent",
+    ),
+    path(
+        "verification/email/resend/",
+        resend_verification_email,
+        name="resend_verification_email",
     ),
     path("verification/email/<str:token>/", verify_account, name="verify_account"),
     path("logout/", user_logout, name="logout"),

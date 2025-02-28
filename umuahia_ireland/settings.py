@@ -13,11 +13,6 @@ from .config import (
     EMAIL_HOST_PASSWORD,
     APP_NAME,
     APP_URL,
-    EMAIL_BACKEND,
-    EMAIL_HOST,
-    EMAIL_PORT,
-    EMAIL_USE_TLS,
-    FRONTEND_URL,
 )
 
 APP_NAME = APP_NAME
@@ -82,7 +77,7 @@ DATABASES = {
         "USER": DB_USER,  
         "PASSWORD": DB_PASSWORD,  
         "HOST": DB_HOST,  
-        "PORT": '3306',  
+        "PORT": DB_PORT,  
     }
 }
 
@@ -120,7 +115,7 @@ if not DEBUG:
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR / "media")
 
-LOGIN_URL = "accounts:user_login_page"
+LOGIN_URL = "accounts:login"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -132,7 +127,5 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "ifeanyionyekwelu786@gmail.com"
-EMAIL_HOST_PASSWORD = "xyak naov xftd czwa"
-
-FRONTEND_URL = FRONTEND_URL
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD

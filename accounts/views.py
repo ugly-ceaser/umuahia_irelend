@@ -4,13 +4,16 @@ from django.contrib.auth import login, get_user_model, logout
 from django.contrib.auth.hashers import make_password
 from users.models import CustomUser
 from django.contrib import messages
-from umuahia_ireland.settings import APP_NAME, APP_URL, FRONTEND_URL
+from umuahia_ireland.settings import APP_NAME, APP_URL
 from django.template.loader import render_to_string
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from .utils import send_verification_email
-from django.utils.crypto import get_random_string
 from django.db import transaction
+from django.utils.timezone import now
+from datetime import timedelta
+
+EMAIL_DIR = '../templates/registration/email'
 
 
 # Function based handler views
@@ -34,33 +37,20 @@ def user_register(request):
     if request.method == "POST":
         try:
             # Retrieve data from POST request
-            phone_number = request.POST.get("phone_number")
+            phone_number = request.POST.get("phone")
             email = request.POST.get("email")
             password = request.POST.get("password")
-            confirmPassword = request.POST.get("confirmPassword")
-
-            print(
-                f"""
-                    User Data:
-                    {phone_number}
-                    {email}
-                    {password}
-                    {confirmPassword}
-                """
-            )
+            confirmPassword = request.POST.get("password2")
 
             # Hash the password
             hashed_password = make_password(password)
-            print(f"Hashed password: {hashed_password}")
 
             # Check if email already exists
             if CustomUser.objects.filter(email=email).exists():
-                print("Email already exists")
                 messages.error(request, message="Email already exists!")
 
             # Check if phone number already exists
             if CustomUser.objects.filter(phone_number=phone_number).exists():
-                print("Phone number already exists")
                 messages.error(
                     request,
                     message="Phone number is already linked to a different account!",
@@ -69,7 +59,6 @@ def user_register(request):
 
             # Check if passwords match
             if password != confirmPassword:
-                print("Password mismatch")
                 messages.error(request, message="Passwords do not match!")
                 return render(request, "registration/register.html")
 
@@ -80,90 +69,89 @@ def user_register(request):
                     phone_number=phone_number,
                     password=hashed_password,
                 )
-                print(f"New User: {new_user}")
-                new_user.save()
+                
+                new_user.generate_verification_token()
 
                 # Send welcome email
-                subject = f"🎉 Welcome to {APP_NAME} {new_user.first_name} {new_user.last_name} {new_user.email}!"
-                token = get_random_string(64)
-                verification_link = f"{FRONTEND_URL}/auth/verify-email/{token}/"
+                subject = f"🎉 Welcome to {APP_NAME} {new_user.email}!"
+                verification_link = f"{APP_URL}/auth/verification/email/{new_user.verification_token}/"
                 context = {
                     "APP_NAME": APP_NAME,
                     "APP_URL": APP_URL,
                     "VERIFICATION_URL": verification_link,
-                    "new_user": new_user,
+                    "user": new_user,
                 }
-                body = render_to_string("email/welcome.html", context)
-                send_verification_email(new_user, subject, "", token, body)
+                body = render_to_string(f"{EMAIL_DIR}/welcome.html", context)
+                send_verification_email(new_user, subject, "", body)
+                
+                login(request, new_user)
 
             return redirect(reverse("accounts:verificaton_email_sent"))
 
         except Exception as e:
             print(e)
-            messages.error(request, message="An error occurred!")
+            messages.error(request, message=f"An error occurred during registration! {e}")
     return render(request, "registration/register.html")
 
 
-def verificaton_email_sent(request):
-    # Redirect already logged-in users
-    if request.user.is_authenticated:
-        return redirect(reverse("dashboard:dashboard"))
-
+def resend_verification_email(request):
     if request.method == "POST":
-        try:
-            data = request.POST
-            email = data.get("email")
+        user = request.user
 
-            user = get_object_or_404(CustomUser, email=email)
+        if user.is_verified:
+            messages.success(request, "Your account is already verified.")
+            return redirect(reverse("dashboard:dashboard"))
 
-            # Clear the older token
-            user.verification_token = None
-            user.token_created_at = None
-            user.save()
+        # Generate new token
+        user.generate_verification_token()
 
-            # Send welcome email
-            subject = f"🎉 Welcome to {APP_NAME} {user.first_name} {user.last_name} {user.email}!"
-            token = get_random_string(64)
-            verification_link = f"{FRONTEND_URL}/auth/verify-email/{token}/"
-            context = {
-                "APP_NAME": APP_NAME,
-                "APP_URL": APP_URL,
-                "VERIFICATION_URL": verification_link,
-            }
-            body = render_to_string("email/welcome.html", context)
-            send_verification_email(user, subject, "", token, body)
+        # Prepare and send email
+        subject = f"📧 Verify Your {APP_NAME} Account"
+        verification_link = f"{APP_URL}/auth/verification/email/{user.verification_token}/"
+        context = {
+            "APP_NAME": APP_NAME,
+            "APP_URL": APP_URL,
+            "VERIFICATION_URL": verification_link,
+            "user": user,
+        }
+        body = render_to_string(f"{EMAIL_DIR}/welcome.html", context)
+        send_verification_email(user, subject, "", body)
 
-        except Http404:
-            messages.error(request, message="Account not found")
-        except Exception as e:
-            messages.error(request, message="An error occurred!")
+        messages.success(request, "A new verification email has been sent.")
+        return redirect(reverse("accounts:verificaton_email_sent"))
 
-    # Render login page with messages in case of any failure
+    return redirect(reverse("dashboard:dashboard"))
+
+
+def verificaton_email_sent(request):
     return render(request, "registration/verification_email_sent.html")
 
 
 # Verify Account View
 def verify_account(request, token):
     try:
-        user = get_object_or_404(CustomUser, verification_token=token)
-        print(f"Found user: {user}")
-        if user:
+        with transaction.atomic():
+            user = get_object_or_404(CustomUser, verification_token=token)
+
+            # Optional: Check if the token has expired (24-hour window)
+            if user.token_created_at and now() - user.token_created_at > timedelta(hours=24):
+                messages.error(request, "Verification link has expired. Please request a new verification email.")
+                return render(request, "registration/verification_failed.html")
+
+            # Mark the user as verified
             user.verification_token = None
             user.token_created_at = None
-            user.user.is_active = True
-            user.user.is_verified = True
+            user.is_verified = True
             user.save()
-            return render(
-                request,
-                "verification_success.html",
-                {"message": "Your account has been successfully verified."},
-            )
+
+            messages.success(request, "Your email has been successfully verified!")
+            return render(request, "registration/verification_success.html")
+
     except Exception as e:
-        return render(
-            request,
-            "registration/verification_failed.html",
-            {"error": "Invalid or expired token."},
-        )
+        # Catch any unexpected errors and show a message
+        messages.error(request, f"An error occurred during verification. Please try again later!")
+        return render(request, "registration/verification_failed.html")
+
 
 
 def user_login(request):

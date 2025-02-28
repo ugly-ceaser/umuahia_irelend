@@ -1,9 +1,21 @@
-{% extends "_base.html" %}
+{% extends "./_base.html" %}
 {% load static %}
 
-{% block title %}Email Verification Success{% endblock %}
-
+{% block title %}Email Verification Successful{% endblock %}
 
 {% block content %}
-<h1>Verification Success</h1>
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white rounded-lg p-8 max-w-lg w-full text-center">
+        <h1 class="text-3xl font-bold text-green-600">✅ Email Verified Successfully!</h1>
+        <p class="mt-4 text-gray-700">
+            Thank you for verifying your email address. Your account is now active, and you can proceed to explore your
+            dashboard.
+        </p>
+
+        <a href="{% url 'dashboard:dashboard' %}"
+            class="mt-6 inline-block bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded transition">
+            Go to Dashboard
+        </a>
+    </div>
+</div>
 {% endblock %}

@@ -17,13 +17,11 @@
 </head>
 
 <body>
-    <header class="w-full bg-white" id="header">
-        <div class="container mx-auto flex justify-between items-center py-2">
-            <div>
-                <a href="">
-                    <img class="w-14" src="{% static 'img/logo.png' %}">
-                </a>
-            </div>
+    <header class="w-full bg-white h-16 top-0 sticky" id="header">
+        <div class="container mx-auto flex justify-between items-center py-2 px-5 h-full">
+            <a href="">
+                <img class="w-16" src="{% static 'img/logo.png' %}">
+            </a>
 
             <nav class="hidden md:block">
                 <ul class="w-full flex items-center space-x-7 font-medium text-md">
@@ -36,7 +34,7 @@
                 </ul>
             </nav>
 
-            <a href="" class="px-4 py-1 rounded-sm text-white font-medium text-sm bg-primary">Donate</a>
+            <a href="" class="px-7 py-2 rounded-md text-white font-medium text-sm bg-primary">Donate</a>
         </div>
     </header>
 

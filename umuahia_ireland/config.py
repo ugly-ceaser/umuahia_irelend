@@ -14,15 +14,10 @@ DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT")
 
 DEFAULT_EMAIL = os.getenv("DEFAULT_EMAIL")
+
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 APP_NAME = os.getenv("APP_NAME")
 APP_URL = os.getenv("APP_URL")
 
-EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
-EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_PORT = os.getenv("EMAIL_PORT")
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS").lower() == "true"
-
-FRONTEND_URL = os.getenv("FRONTEND_URL")
