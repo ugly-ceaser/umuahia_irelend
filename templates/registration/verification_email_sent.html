@@ -5,49 +5,22 @@
 
 {% block content %}
 <div class="min-h-screen flex items-center justify-center bg-gray-100">
-    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        {% if messages %}
-        {% for message in messages %}
-        <div class="p-4 mb-4 rounded-lg border-l-4 
-                                {% if 'error' in message.tags %}
-                                    border-red-500 bg-red-100 text-red-800
-                                {% elif 'success' in message.tags %}
-                                    border-green-500 bg-green-100 text-green-800
-                                {% else %}
-                                    border-gray-500 bg-gray-100 text-gray-800
-                                {% endif %}">
-            <div class="flex justify-between items-center">
-                <span class="font-medium">{{ message.tags|title }}:</span>
-                <span class="ml-2">{{ message }}</span>
-                <button type="button" class="ml-4 text-gray-500 hover:text-gray-700"
-                    onclick="this.parentElement.parentElement.remove()">
-                    &times;
-                </button>
-            </div>
-        </div>
-        {% endfor %}
-        {% endif %}
-        <h1 class="text-2xl font-bold text-gray-800 mb-4">Verification Email Sent</h1>
+    <div class="bg-white p-8 rounded-lg w-full flex items-center flex-col space-y-5">
+        <img src="{% static 'img/Message_and_nofitications.png' %}" alt="" class="w-48">
+        <h1 class="text-2xl font-bold text-gray-800">Verify Your Email</h1>
+        <p class="text-gray-600 font-bold text-2xl">
+            One Last Step
+        </p>
         <p class="text-gray-600">
-            A verification link has been sent to your email address. Please check your inbox and click the link to
-            verify your account.
-        </p>
-        <p class="text-gray-600 mt-2">
-            If you did not receive the email, check your spam folder or click the button below to request a new
-            verification link.
+            We’ve sent a verification link to your email: {{ request.user.email }}.
+            Please check your inbox and click the link to verify your email address.
         </p>
 
-        <div class="mt-6">
-            <form action="{% url 'accounts:resend_verification_email' %}" method="post">
-                {% csrf_token %}
-                <button type="submit"
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-200">
-                    Resend Verification Email
-                </button>
-            </form>
-        </div>
+        <a href="{% url 'accounts:resend_verification_email' %}"
+            class="w-fit px-10 bg-[#D0AC42] hover:bg-primary text-white font-semibold py-2 rounded-lg transition duration-200">Resent
+            Verification Email</a>
 
-        <div class="mt-4 text-center">
+        <div class="text-center">
             <a href="{% url 'accounts:login' %}" class="text-blue-600 hover:underline">
                 Return to Login
             </a>

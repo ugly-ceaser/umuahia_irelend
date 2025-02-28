@@ -4,18 +4,20 @@
 {% block title %}Email Verification Successful{% endblock %}
 
 {% block content %}
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="bg-white rounded-lg p-8 max-w-lg w-full text-center">
-        <h1 class="text-3xl font-bold text-green-600">✅ Email Verified Successfully!</h1>
-        <p class="mt-4 text-gray-700">
-            Thank you for verifying your email address. Your account is now active, and you can proceed to explore your
-            dashboard.
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white p-8 rounded-lg w-full flex items-center flex-col space-y-5">
+        <img src="{% static 'img/confirmed.png' %}" alt="" class="w-48">
+        <h1 class="text-2xl font-bold text-gray-800">Email Verified</h1>
+        <p class="text-gray-600 font-bold text-2xl">
+            You are all set
+        </p>
+        <p class="text-gray-600">
+            Your email has been successfully verified. You can now access your account.
         </p>
 
-        <a href="{% url 'dashboard:dashboard' %}"
-            class="mt-6 inline-block bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded transition">
-            Go to Dashboard
-        </a>
+        <a href="{% url 'accounts:login' %}"
+            class="w-fit px-10 bg-[#D0AC42] hover:bg-primary text-white font-semibold py-2 rounded-lg transition duration-200">Login
+            Now</a>
     </div>
 </div>
 {% endblock %}

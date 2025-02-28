@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from functools import wraps
+from django.urls import reverse
 from django.contrib.auth import login, get_user_model, logout
 from django.contrib.auth.hashers import make_password
 from users.models import CustomUser
@@ -16,7 +18,19 @@ from datetime import timedelta
 EMAIL_DIR = '../templates/registration/email'
 
 
+def validation_required(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        # Check if the user is authenticated
+        if request.user.is_authenticated:
+            return redirect(reverse("dashboard:dashboard"))
+        # If all checks pass, call the view function
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
+
+
 # Function based handler views
+@validation_required
 def user_register(request):
     """
     Handles user registration. This function retrieves user data from POST request,
@@ -153,7 +167,7 @@ def verify_account(request, token):
         return render(request, "registration/verification_failed.html")
 
 
-
+@validation_required
 def user_login(request):
     """
     Handles user login. This function retrieves the email and password from the POST request,
