@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Left Side Image -->
+        <div class="image-section">
+            <img src="../img/Shield.png" alt="Cultural Shield">
+        </div>
+
+        <!-- Right Side Form -->
+        <div class="form-section">
+            <div class="form-box">
+                <img src="../img/logo.png" alt="Logo" class="logo">
+                <h2>Log in to your account</h2>
+                <p class="subtext">Enter your account login details correctly</p>
+
+                <form id="loginForm">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" >
+
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number" >
+
+                    <label for="password">Password</label>
+                    <div class="input-container">
+                        <input type="password" id="password" placeholder="Enter your password" >
+                        <span class="password-toggle" onclick="togglePassword('password')">👁</span>
+                    </div>
+
+                    <div class="extras">
+                        <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Remember me</label>
+                        <a href="forgot-password.html">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn">Proceed</button>
+                </form>
+
+                <p class="signup">Don’t have an account? 
+                    <a href="signup.html">Sign up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+<div id="toast" class="toast">
+    <img id="toast-icon" src="../img/checks.png" alt="Success" class="toast-icon">
+    <div class="toast-content">
+        <h4 id="toast-title">Success</h4>
+        <p id="toast-message"></p>
+    </div>
+    <button class="close-btn" onclick="hideToast()">×</button>
+</div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            window.togglePassword = function (id) {
+                let input = document.getElementById(id);
+                if (input) {
+                    input.type = input.type === "password" ? "text" : "password";
+                }
+            };
+    
+            window.showToast = function (title, message, isSuccess = true) {
+                const toast = document.getElementById("toast");
+                const toastTitle = document.getElementById("toast-title");
+                const toastMessage = document.getElementById("toast-message");
+                const toastIcon = document.getElementById("toast-icon");
+            
+                if (!toast) return; 
+            
+                toastTitle.textContent = title;
+                toastMessage.textContent = message;
+            
+                if (isSuccess) {
+                    toast.classList.remove("error");
+                    toast.classList.add("success");
+                    toastIcon.src = "../img/checks.png"; 
+                } else {
+                    toast.classList.remove("success");
+                    toast.classList.add("error");
+                    toastIcon.src = "../img/errors.png"; 
+                }
+            
+                // ADDING SHOW CLASS
+                toast.classList.add("show");
+            
+                // Automatically hide after 8 seconds
+                setTimeout(() => {
+                    hideToast();
+                }, 8000);
+            };
+            
+            window.hideToast = function () {
+                const toast = document.getElementById("toast");
+                if (toast) {
+                    toast.classList.remove("show"); 
+                }
+            };
+            
+            
+            const loginForm = document.getElementById("loginForm");
+            if (loginForm) {
+                loginForm.addEventListener("submit", function (event) {
+                    event.preventDefault(); 
+        
+                    let email = document.getElementById("email").value.trim();
+                    let phone = document.getElementById("phone").value.trim();
+                    let password = document.getElementById("password").value.trim();
+        
+                    
+                    if (!email || !phone || !password) {
+                        showToast("Error", "All fields are required!", false);
+                        return;
+                    }
+        
+                    if (email === "user@example.com" && phone === "1234567890" && password === "password") {
+                        showToast("Congratulations", "Login Successful!");
+                        setTimeout(() => {
+                            window.location.href = "userManagement.html";
+                        }, 2000);
+                    } else {
+                        showToast("Error", "Invalid credentials, please try again.", false);
+                    }
+                });
+            }
+        });
+        
+        
+    </script>
+
+</body>
+</html>

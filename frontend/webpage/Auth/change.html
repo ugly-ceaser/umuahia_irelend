@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password</title>
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Left Side Image -->
+        <div class="image-section">
+            <img src="../img/Shield.png" alt="Cultural Shield">
+        </div>
+    
+        <!-- Right Side Form -->
+        <div class="form-section">
+            <div class="form-box">
+                <div class="icon-container">
+                    <div class="icon-circle">
+                       <img src="../img/good.png" alt="Success" width="80">
+                    </div>
+                </div>
+                <h2>Change Password</h2>
+                <p>Congratulations, your email has been verified! You can now reset your password.</p>
+    
+                <form id="passwordForm">
+                    <label for="password">New Password</label>
+                    <div class="input-container">
+                        <input type="password" id="password" placeholder="Enter new password" >
+                        <i class="fas fa-eye password-toggle" onclick="togglePassword('password')"></i>
+                    </div>
+    
+                    <label for="confirm-password">Confirm Password</label>
+                    <div class="input-container">
+                        <input type="password" id="confirm-password" placeholder="Confirm password">
+                        <i class="fas fa-eye password-toggle" onclick="togglePassword('confirm-password')"></i>
+                    </div>
+    
+                    <button type="submit" class="btn">Proceed</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="icon-container">
+                <img src="../img/check.png" alt="Success Icon" width="80">
+            </div>
+            <p class="modalParagraph">Congratulations, your password has been successfully reset!</p>
+            <p class="modalText">You can now log in.</p>
+            <button class="btn btn2" onclick="closeModal()">Login</button>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <img id="toast-icon" src="../img/checks.png" alt="Success" class="toast-icon">
+        <div class="toast-content">
+            <h4 id="toast-title">Success</h4>
+            <p id="toast-message"></p>
+        </div>
+        <button class="close-btn" onclick="hideToast()">×</button>
+    </div>
+
+    <script>
+        function togglePassword(id) {
+            let input = document.getElementById(id);
+            let icon = input.parentElement.querySelector(".password-toggle");
+        
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+        
+
+        function showToast(title, message, isSuccess = true) {
+            const toast = document.getElementById("toast");
+            const toastTitle = document.getElementById("toast-title");
+            const toastMessage = document.getElementById("toast-message");
+            const toastIcon = document.getElementById("toast-icon");
+
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+
+            if (isSuccess) {
+                toast.classList.remove("error");
+                toast.classList.add("success");
+                toastIcon.src = "../img/checks.png"; 
+            } else {
+                toast.classList.remove("success");
+                toast.classList.add("error");
+                toastIcon.src = "../img/errors.png"; 
+            }
+
+            // Show toast
+            toast.classList.add("show");
+
+            // Auto-hide after 8 seconds
+            setTimeout(hideToast, 8000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById("toast");
+            toast.classList.remove("show");
+        }
+
+        function showModal() {
+            document.getElementById("successModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("successModal").style.display = "none";
+            window.location.href = "signin.html"; 
+        }
+
+        document.getElementById("passwordForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            let password = document.getElementById("password").value.trim();
+            let confirmPassword = document.getElementById("confirm-password").value.trim();
+
+            if (password === "" || confirmPassword === "") {
+                showToast("Error", "Password fields cannot be empty!", false);
+                return;
+            }
+
+            if (password.length < 6) {
+                showToast("Error", "Password must be at least 6 characters long!", false);
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showToast("Error", "Passwords do not match!", false);
+                return;
+            }
+
+            // Success case
+            showToast("Success", "Password reset successful!");
+            setTimeout(showModal, 1000);
+        });
+    </script>
+
+</body>
+</html>
