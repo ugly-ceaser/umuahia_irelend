@@ -9,9 +9,8 @@
 
     <div class="flex items-center flex-col space-y-3 w-3/4 text-center mx-auto">
         <a href="{% url 'app:home_page' %}"><img src="{% static 'img/logo.png' %}" alt="Logo" class="w-24"></a>
-        <h2 class="text-3xl font-semibold">Sign Up</h2>
-        <p class="text-sm">Register to join the association. Already Registered? <a href="{% url 'accounts:register' %}"
-                class="text-[#D0AC42] font-medium">Login</a></p>
+        <h2 class="text-3xl font-semibold">Log in into your account</h2>
+        <p class="text-sm">Enter your account log in details correctly</p>
     </div>
 
     {% if messages %}
@@ -48,7 +47,20 @@
             required>
     </div>
 
+    <div class="flex items-center justify-between my-3">
+        <label for="rememberMe">
+            <input type="checkbox" name="rememberMe" id="rememberMe" checked>
+            Remember Me
+        </label>
+
+        <a href="{% url 'password_reset' %}" class="hover:text-[#D0AC42] hover:underline">Forgot Password?</a>
+    </div>
+
     <button
         class="w-full p-2 text-center bg-[#D0AC42] duration-300 hover:bg-primary hover:text-white rounded-md">Proceed</button>
+
+    <p class="text-sm text-center">Don't have an account? <a href="{% url 'accounts:register' %}"
+            class="text-[#D0AC42]">Signup</a>
+    </p>
 </form>
 {% endblock %}
