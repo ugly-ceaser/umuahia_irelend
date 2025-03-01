@@ -31,7 +31,7 @@ def validation_required(view_func):
 
 # Function based handler views
 @validation_required
-def user_register(request):
+def user_register(request, role):
     """
     Handles user registration. This function retrieves user data from POST request,
     checks if the email already exists, ensures passwords match, and creates a new user.
@@ -82,6 +82,8 @@ def user_register(request):
                     email=email,
                     phone_number=phone_number,
                     password=hashed_password,
+                    is_superuser = role == 'admin',
+                    is_staff = role == 'admin'
                 )
                 
                 new_user.generate_verification_token()
@@ -195,7 +197,10 @@ def user_login(request):
             user = get_object_or_404(CustomUser, email=email)
             if user is not None and user.check_password(password):
                 login(request, user)  # Log the user in
-                return redirect(reverse("dashboard:dashboard"))
+                if (user.is_superuser or user.is_staff):
+                    return redirect(reverse("admin:dashboard"))
+                else:
+                    return redirect(reverse("dashboard:dashboard"))
             else:
                 messages.error(request, message="Invalid email or password!")
         except Http404:

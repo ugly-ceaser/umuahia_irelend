@@ -12,7 +12,7 @@ app_name = "accounts"
 
 urlpatterns = [
     path("login/", user_login, name="login"),
-    path("register/", user_register, name="register"),
+    path("register/<str:role>/", user_register, name="register"),
     path(
         "verification/email/sent/",
         verificaton_email_sent,

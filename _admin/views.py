@@ -13,13 +13,31 @@ from django.db import transaction
 
 # Create your views here.
 @admin_required
-def index(request):
+def dashboard_member(request):
     users = CustomUser.objects.all()
     total_users = CustomUser.objects.count()
 
     context = {"users": users, "total_users": total_users}
 
-    return render(request, "_admin/index.html", context)
+    return render(request, "_admin/dashboard.html", context)
+
+@admin_required
+def dashboard_project(request):
+    users = CustomUser.objects.all()
+    total_users = CustomUser.objects.count()
+
+    context = {"users": users, "total_users": total_users}
+
+    return render(request, "_admin/dashboard-projects.html", context)
+
+
+@admin_required
+def all_members(request):
+    return render(request, "_admin/members.html")
+
+@admin_required
+def all_projects(request):
+    return render(request, "_admin/projects.html")
 
 
 @admin_required

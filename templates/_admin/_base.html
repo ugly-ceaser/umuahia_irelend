@@ -1,40 +1,79 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | {% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/admin_styles.css' %}">
+    <title>Umuahia Ireland | {{ request.user.email }}</title>
+
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'dashboard:admin_dashboard' %}">Dashboard</a></li>
-                <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="flex md:flex-row">
+        <aside class="sidebar h-screen justify-between">
+            <div>
+                <img src="{% static 'img/logo.png' %}" alt="Logo" class="w-16 mx-auto">
+                <ul class="mt-5 space-y-3">
+                    <li
+                        class="px-5 py-2 border-l-4 border-border hover:bg-menu hover:text-secondary font-medium duration-100">
+                        <a href="{% url 'dashboard:dashboard' %}" class="block w-full">
+                            <i class="fas fa-users"></i> Members
+                        </a>
+                    </li>
+                    <li
+                        class="px-5 py-2 hover:border-l-4 hover:border-border hover:bg-menu hover:text-secondary font-medium duration-100">
+                        <a href="{% url 'dashboard:dashboard' %}" class="block w-full">
+                            <i class="fas fa-book"></i> Minutes
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-    <aside>
-        <ul>
-            <li><a href="{% url 'dashboard:manage_users' %}">Manage Users</a></li>
-            <li><a href="{% url 'dashboard:upload_minutes' %}">Upload Minutes</a></li>
-        </ul>
-    </aside>
+            <div>
+                <ul class="mt-5 space-y-3">
+                    <li
+                        class="px-5 py-2 hover:border-l-4 hover:border-border hover:bg-menu hover:text-secondary font-medium duration-100">
+                        <a href="{% url 'dashboard:dashboard' %}" class="block w-full">
+                            <i class="fas fa-gears"></i> Settings
+                        </a>
+                    </li>
+                    <li
+                        class="px-5 py-2 hover:border-l-4 hover:border-border hover:bg-menu hover:text-secondary font-medium duration-100">
+                        <a href="{% url 'dashboard:dashboard' %}" class="block w-full text-red-800 font-bold">
+                            <i class="fas fa-door-open"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
 
-    <main>
-        {% block content %}
-        <!-- Page-specific content -->
-        {% endblock %}
-    </main>
+        <main class="content">
+            <header>
+                <h2 class="text-xl font-bold">{% block page_title %} {% endblock %}</h2>
+                <div class="user-info">
+                    <img src="profile.jpg" alt="User">
+                    <div>
+                        <p class="text-lg font-bold text-primary">
+                            {% if request.user.first_name %}
+                            {{request.user.first_name}}
+                            {% else%}
+                            Admin
+                            {% endif %}
+                        </p>
+                        <p class="text-xs text-green-700 font-semibold">Super Admin</p>
+                    </div>
+                </div>
+            </header>
 
-    <footer>
-        <p>&copy; 2024 Admin Panel - Umuahia Ireland Association</p>
-    </footer>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 
 </html>
