@@ -70,6 +70,22 @@ def dashboard_member(request):
 
 
 @admin_required
+def create_minutes(request):
+    title = request.POST.get("title")
+    date = request.POST.get("date")
+    description = request.POST.get("description", "")
+
+    if not title or not date:
+        messages.error(request, "Title and Date are required.")
+        return redirect(reverse("admin:minuites"))
+
+    Minuites.objects.create(title=title, date=date, description=description)
+
+    messages.success(request, "Minutes created successfully.")
+    return redirect(reverse("admin:minuites"))
+
+
+@admin_required
 def dashboard_project(request):
     users = CustomUser.objects.all()
     total_users = CustomUser.objects.count()
@@ -161,36 +177,38 @@ class SettingsView(AdminRequiredMixin, TemplateView):
 @admin_required
 def change_password(request):
     if request.method == "POST":
-        currentPassword = request.POST.get("current_password")
-        newPassword = request.POST.get("newPassword")
-        confirmPassword = request.POST.get("confirmPassword")
-
-        hashed_password = make_password(newPassword)
+        currentPassword = request.POST.get("current-password")
+        newPassword = request.POST.get("new-password")
+        confirmPassword = request.POST.get("new-password2")
 
         user = CustomUser.objects.get(id=request.user.id)
 
         if not user.check_password(currentPassword):
             messages.error(request, "Current password is incorrect!")
-            return render(request, "_admin/settings.html")
+            return redirect(reverse("admin:settings"))
 
         if not newPassword == confirmPassword:
             messages.error(request, "Passwords do not match!")
-            return render(request, "_admin/settings.html")
+            return redirect(reverse("admin:settings"))
 
         if newPassword == currentPassword:
             messages.error(request, "The new password cannot be your current password!")
-            return render(request, "_admin/settings.html")
+            return redirect(reverse("admin:settings"))
 
-        user.password = hashed_password
+        user.set_password(newPassword)
         user.save()
+        messages.success(
+            request,
+            "Your password has been changed! You will be redirected to login again",
+        )
 
         # Send welcome email
-        subject = f"Admin Password Changed"
-        context = {
-            "APP_NAME": APP_NAME,
-            "APP_URL": APP_URL,
-        }
-        body = render_to_string("email/admin/password-changed.html", context)
-        send_message(user, subject, "", body)
+        # subject = f"Admin Password Changed"
+        # context = {
+        #     "APP_NAME": APP_NAME,
+        #     "APP_URL": APP_URL,
+        # }
+        # body = render_to_string("email/admin/password-changed.html", context)
+        # send_message(user, subject, "", body)
 
     return render(request, "_admin/settings.html")

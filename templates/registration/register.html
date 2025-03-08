@@ -16,7 +16,7 @@
 
     {% if messages %}
     {% for message in messages %}
-    <div class="p-4 mb-4 rounded-lg border-l-4 
+    <div class="p-4 mb-4 border-l-4
                     {% if 'error' in message.tags %}
                         border-red-500 bg-red-100 text-red-800
                     {% elif 'success' in message.tags %}

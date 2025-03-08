@@ -15,7 +15,8 @@
         <span class="py-1 px-2 bg-[#F0F2F5] text-sm">
             <i class="ti ti-search"></i>
         </span>
-        <input type="search" class="w-full px-2 py-1 rounded-md bg-[#F0F2F5] text-sm outline-none" placeholder="Search here...">
+        <input type="search" class="w-full px-2 py-1 rounded-md bg-[#F0F2F5] text-sm outline-none"
+            placeholder="Search here...">
     </form>
 
     <div class="flex space-x-1 items-center">
@@ -33,42 +34,27 @@
                 <th>Position</th>
                 <th>Date Registered</th>
                 <th>Status</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             {% for user in users %}
-                <tr>
-                    <td>
-                        <div class="member-info">
-                            <img src="{% static 'img/profile.jpg' %}" alt="Profile">
-                            <span>{{ user.first_name }} {{ user.last_name }}</span>
-                        </div>
-                    </td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.position|default:"Member" }}</td>
-                    <td>{{ user.date_joined|date:"n/j/Y" }}</td>
-                    <td>
-                        {% if user.is_active %}
-                            <span class="p-2 rounded-full text-green-700 font-bold text-sm bg-menu">● Available</span>
-                        {% else %}
-                            <span class="p-2 rounded-full text-red-700 font-bold text-sm bg-menu">● Inactive</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <div class="action-menu">
-                            <i class="ti ti-dots-vertical cursor-pointer toggle-menu"></i>
-                            <ul class="action-list hidden">
-                                <li class="delete-user">Delete User</li>
-                                <li class="deactivate-user">Deactivate User</li>
-                                <li class="view-profile">View Profile</li>
-                                <li class="flag-star">Flag/Star User</li>
-                            </ul>
-                        </div>
-
-                    </td>
-                </tr>
-                {% endfor %}
+            <tr>
+                <td>
+                    <div class="member-info">
+                        <span>{{ user.first_name }} {{ user.last_name }}</span>
+                    </div>
+                </td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.position|default:"Member" }}</td>
+                <td>{{ user.date_joined|date:"n/j/Y" }}</td>
+                <td>
+                    {% if user.is_active %}
+                    <span class="p-2 rounded-full text-green-700 font-bold text-sm bg-menu">● Available</span>
+                    {% else %}
+                    <span class="p-2 rounded-full text-red-700 font-bold text-sm bg-menu">● Inactive</span>
+                    {% endif %}
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

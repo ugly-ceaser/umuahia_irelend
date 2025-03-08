@@ -1392,10 +1392,6 @@ video {
   text-transform: uppercase;
 }
 
-.italic{
-  font-style: italic;
-}
-
 .text-\[\#3b1217\]{
   --tw-text-opacity: 1;
   color: rgb(59 18 23 / var(--tw-text-opacity, 1));
@@ -1489,10 +1485,6 @@ video {
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-
-.underline{
-  text-decoration-line: underline;
 }
 
 .shadow-lg{

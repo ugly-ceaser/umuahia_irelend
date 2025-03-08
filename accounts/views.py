@@ -199,7 +199,7 @@ def user_login(request):
     """
     # Redirect already logged-in users
     if request.user.is_authenticated:
-        return redirect(reverse("dashboard:dashboard"))
+        return redirect(reverse("user:dashboard"))
 
     if request.method == "POST":
         try:
@@ -214,15 +214,15 @@ def user_login(request):
             if user is not None and user.check_password(password):
                 login(request, user)  # Log the user in
                 if user.is_superuser or user.is_staff:
-                    return redirect(reverse("admin:dashboard"))
+                    return redirect(reverse("admin:dashboard_members"))
                 else:
-                    return redirect(reverse("dashboard:dashboard"))
+                    return redirect(reverse("user:dashboard"))
             else:
                 messages.error(request, message="Invalid email or password!")
         except Http404:
             messages.error(request, message="Invalid email or password!")
         except Exception as e:
-            messages.error(request, message="An error occurred!")
+            messages.error(request, message=f"An error occurred! {e}")
 
     # Render login page with messages in case of any failure
     return render(request, "registration/login.html")

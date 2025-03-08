@@ -16,9 +16,9 @@
             {% endif %}</h3>
     </div>
     <a href="afterCreate.html"></a>
-    <a href="#"
-        class="px-7 py-3 bg-secondary hover:bg-primary duration-300 text-white font-semibold text-sm rounded-md" id="openCreateMinutes">Create
-        Member</a>
+    <a href="#" class="px-7 py-3 bg-secondary hover:bg-primary duration-300 text-white font-semibold text-sm rounded-md"
+        id="openCreateMinutes">Create
+        Minuites</a>
 </div>
 
 <!-- Stats Cards -->
@@ -29,35 +29,35 @@
     {% include './_dash-menu-tabs.html' %}
 
     {% if minuites %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Date</th>
-                    <th>Created At</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for minuite in minuites %}
-                <tr>
-                    <td>{{ minuite.title }}</td>
-                    <td>{{ minuite.date|date:"n/j/Y" }}</td>
-                    <td>{{ minuite.created_at|date:"n/j/Y" }}</td>
-                    <td>
-                        <div class="action-menu">
-                            <i class="ti ti-dots-vertical cursor-pointer toggle-menu"></i>
-                            <ul class="action-list hidden">
-                                <li class="delete-user">Delete User</li>
-                                <li class="deactivate-user">Deactivate User</li>
-                                <li class="view-profile">View Profile</li>
-                                <li class="flag-star">Flag/Star User</li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for minuite in minuites %}
+            <tr>
+                <td>{{ minuite.title }}</td>
+                <td>{{ minuite.date|date:"n/j/Y" }}</td>
+                <td>{{ minuite.created_at|date:"n/j/Y" }}</td>
+                <td>
+                    <div class="action-menu">
+                        <i class="ti ti-dots-vertical cursor-pointer toggle-menu"></i>
+                        <ul class="action-list hidden">
+                            <li class="delete-user">Delete User</li>
+                            <li class="deactivate-user">Deactivate User</li>
+                            <li class="view-profile">View Profile</li>
+                            <li class="flag-star">Flag/Star User</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% else %}
     <div class="flex items-center justify-center space-y-2 flex-col">
         <img src="{% static 'img/user.png' %}" alt="No Members" class="w-24">
@@ -68,33 +68,39 @@
 </section>
 
 
-<div id="createMinutesModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" style="display: none;">
+<div id="createMinutesModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    style="display: none;">
     <div class="modal-content bg-white w-full max-w-lg p-6 rounded-lg shadow-lg relative space-y-5">
-        <span class="close absolute top-3 right-4 text-gray-600 text-xl cursor-pointer hover:text-red-500" onclick="closeModal()">&times;</span>
+        <span class="close absolute top-3 right-4 text-gray-600 text-xl cursor-pointer hover:text-red-500"
+            onclick="closeModal()">&times;</span>
         <h3 class="text-2xl font-semibold text-gray-800">Create Minutes</h3>
         <p class="text-gray-600">This information will be used to create Minutes</p>
 
-        <form id="minutesForm" class="space-y-4">
+        <form id="minutesForm" class="space-y-4" method="post" action="{% url 'admin:create_minutes' %}">
+            {% csrf_token %}
             <div>
                 <label for="minutesTitle" class="block text-sm font-medium text-gray-700">Minutes Title*</label>
-                <input type="text" id="minutesTitle" placeholder="Enter minutes title"
+                <input type="text" id="minutesTitle" placeholder="Enter minutes title" name="title"
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <div>
                 <label for="minutesDate" class="block text-sm font-medium text-gray-700">Minutes Date*</label>
                 <input type="date" id="minutesDate"
-                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    name="date">
             </div>
 
             <div>
-                <label for="minutesDescription" class="block text-sm font-medium text-gray-700">Minutes Description</label>
-                <textarea id="minutesDescription" placeholder="Type here"
+                <label for="minutesDescription" class="block text-sm font-medium text-gray-700">Minutes
+                    Description</label>
+                <textarea id="minutesDescription" placeholder="Type here" name="description"
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none h-28"></textarea>
             </div>
 
             <div class="modal-footer flex justify-end space-x-4">
-                <button type="submit" class="publish-btn bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition">
+                <button type="submit"
+                    class="publish-btn bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition">
                     Save and Publish
                 </button>
             </div>
@@ -168,7 +174,6 @@
         });
 
         form?.addEventListener("submit", function (event) {
-            event.preventDefault();
 
             const title = document.getElementById("minutesTitle").value.trim();
             const date = document.getElementById("minutesDate").value.trim();
@@ -177,8 +182,6 @@
                 showToast("Error", "Please fill in all required fields!", false);
                 return;
             }
-
-            showToast("Success", "Minutes successfully published!", true);
 
             setTimeout(() => {
                 closeModal();

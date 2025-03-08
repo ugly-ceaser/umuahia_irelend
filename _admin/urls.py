@@ -21,6 +21,7 @@ urlpatterns = [
     ),
     path("user/<pk>/delete/", views.UserDeleteView.as_view(), name="delete_user"),
     path("minuites/", views.MinuitesListView.as_view(), name="minuites"),
+    path("create-minuites/", views.create_minutes, name="create_minutes"),
     path("settings/", views.SettingsView.as_view(), name="settings"),
     path("change-password/", views.change_password, name="change-password"),
 ]
