@@ -15,7 +15,7 @@ from django.db import transaction
 from django.utils.timezone import now
 from datetime import timedelta
 
-EMAIL_DIR = '../templates/registration/email'
+EMAIL_DIR = "../templates/registration/email"
 
 
 def validation_required(view_func):
@@ -23,9 +23,12 @@ def validation_required(view_func):
     def _wrapped_view(request, *args, **kwargs):
         # Check if the user is authenticated
         if request.user.is_authenticated:
+            if request.user.is_superuser or request.user.is_staff:
+                return redirect(reverse("admin:dashboard_members"))
             return redirect(reverse("dashboard:dashboard"))
         # If all checks pass, call the view function
         return view_func(request, *args, **kwargs)
+
     return _wrapped_view
 
 
@@ -82,15 +85,17 @@ def user_register(request, role):
                     email=email,
                     phone_number=phone_number,
                     password=hashed_password,
-                    is_superuser = role == 'admin',
-                    is_staff = role == 'admin'
+                    is_superuser=role == "admin",
+                    is_staff=role == "admin",
                 )
-                
+
                 new_user.generate_verification_token()
 
                 # Send welcome email
                 subject = f"🎉 Welcome to {APP_NAME} {new_user.email}!"
-                verification_link = f"{APP_URL}/auth/verification/email/{new_user.verification_token}/"
+                verification_link = (
+                    f"{APP_URL}/auth/verification/email/{new_user.verification_token}/"
+                )
                 context = {
                     "APP_NAME": APP_NAME,
                     "APP_URL": APP_URL,
@@ -99,14 +104,16 @@ def user_register(request, role):
                 }
                 body = render_to_string(f"{EMAIL_DIR}/welcome.html", context)
                 send_verification_email(new_user, subject, "", body)
-                
+
                 login(request, new_user)
 
             return redirect(reverse("accounts:verificaton_email_sent"))
 
         except Exception as e:
             print(e)
-            messages.error(request, message=f"An error occurred during registration! {e}")
+            messages.error(
+                request, message=f"An error occurred during registration! {e}"
+            )
     return render(request, "registration/register.html")
 
 
@@ -123,7 +130,9 @@ def resend_verification_email(request):
 
         # Prepare and send email
         subject = f"📧 Verify Your {APP_NAME} Account"
-        verification_link = f"{APP_URL}/auth/verification/email/{user.verification_token}/"
+        verification_link = (
+            f"{APP_URL}/auth/verification/email/{user.verification_token}/"
+        )
         context = {
             "APP_NAME": APP_NAME,
             "APP_URL": APP_URL,
@@ -150,8 +159,13 @@ def verify_account(request, token):
             user = get_object_or_404(CustomUser, verification_token=token)
 
             # Optional: Check if the token has expired (24-hour window)
-            if user.token_created_at and now() - user.token_created_at > timedelta(hours=24):
-                messages.error(request, "Verification link has expired. Please request a new verification email.")
+            if user.token_created_at and now() - user.token_created_at > timedelta(
+                hours=24
+            ):
+                messages.error(
+                    request,
+                    "Verification link has expired. Please request a new verification email.",
+                )
                 return render(request, "registration/verification_failed.html")
 
             # Mark the user as verified
@@ -165,7 +179,9 @@ def verify_account(request, token):
 
     except Exception as e:
         # Catch any unexpected errors and show a message
-        messages.error(request, f"An error occurred during verification. Please try again later!")
+        messages.error(
+            request, f"An error occurred during verification. Please try again later!"
+        )
         return render(request, "registration/verification_failed.html")
 
 
@@ -197,7 +213,7 @@ def user_login(request):
             user = get_object_or_404(CustomUser, email=email)
             if user is not None and user.check_password(password):
                 login(request, user)  # Log the user in
-                if (user.is_superuser or user.is_staff):
+                if user.is_superuser or user.is_staff:
                     return redirect(reverse("admin:dashboard"))
                 else:
                     return redirect(reverse("dashboard:dashboard"))

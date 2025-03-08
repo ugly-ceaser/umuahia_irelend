@@ -8,6 +8,7 @@ from django.utils.timezone import now
 import uuid
 from django.utils.crypto import get_random_string
 
+
 class UserProfileManager(BaseUserManager):
     """Manager for user profiles"""
 
@@ -55,6 +56,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=now)
+
+    # New Fields
+    about = models.TextField(blank=True, null=True)
+    location = models.CharField(max_length=255, blank=True, null=True)
 
     objects = UserProfileManager()
 

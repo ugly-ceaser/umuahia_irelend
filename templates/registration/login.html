@@ -15,7 +15,7 @@
 
     {% if messages %}
     {% for message in messages %}
-    <div class="p-4 mb-4 border-l-4 
+    <div class="p-4 mb-4 border-l-4
                         {% if 'error' in message.tags %}
                             border-red-500 bg-red-100 text-red-800
                         {% elif 'success' in message.tags %}
@@ -58,7 +58,7 @@
     <button
         class="w-full p-2 text-center bg-[#D0AC42] duration-300 hover:bg-primary hover:text-white rounded-md">Proceed</button>
 
-    <p class="text-sm text-center">Don't have an account? <a href="{% url 'accounts:register' user %}"
+    <p class="text-sm text-center">Don't have an account? <a href="{% url 'accounts:register' 'user' %}"
             class="text-[#D0AC42]">Signup</a>
     </p>
 </form>
