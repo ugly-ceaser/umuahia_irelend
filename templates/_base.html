@@ -17,75 +17,146 @@
 </head>
 
 <body>
-    <header class="w-full bg-white h-16 top-0 sticky" id="header">
-        <div class="container mx-auto flex justify-between items-center py-2 px-5 h-full">
-            <a href="">
-                <img class="w-16" src="{% static 'img/logo.png' %}">
+    <header class="w-full bg-white h-20 sticky top-0 z-50 shadow-md" id="header">
+        <div class="container mx-auto flex justify-between items-center px-6 py-4">
+            <!-- Logo Section -->
+            <a href="" class="flex items-center space-x-2">
+                <img class="w-10 h-10 object-cover" src="{% static 'img/logo.png' %}" alt="Logo">
             </a>
 
-            <nav class="hidden md:block">
-                <ul class="w-full flex items-center space-x-7 font-medium text-md">
-                    <li><a href="#" class="text-black hover:text-primary hover:underline">Home</a></li>
-                    <li><a href="#about" class="text-black hover:text-primary hover:underline">About Us</a></li>
-                    <li><a href="#gallery" class="text-black hover:text-primary hover:underline">Gallery</a></li>
-                    <li><a href="#contact" class="text-black hover:text-primary hover:underline">Contact Us</a></li>
+            <!-- Navigation (Desktop) -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <ul class="flex items-center space-x-6 font-medium text-lg">
+                    <li><a href="#" class="text-gray-700 hover:text-primary transition-all duration-300">Home</a></li>
+                    <li><a href="#about" class="text-gray-700 hover:text-primary transition-all duration-300">About
+                            Us</a></li>
+                    <li><a href="#gallery"
+                            class="text-gray-700 hover:text-primary transition-all duration-300">Gallery</a></li>
+                    <li><a href="#contact" class="text-gray-700 hover:text-primary transition-all duration-300">Contact
+                            Us</a></li>
                     <li><a href="{% url 'accounts:login' %}"
-                            class="text-black hover:text-primary hover:underline">Login</a></li>
+                            class="text-gray-700 hover:text-primary transition-all duration-300">Login</a></li>
                 </ul>
+
+                <!-- Donate Button -->
+                <a href="#"
+                    class="px-6 py-2 text-sm font-semibold text-white bg-primary rounded-lg shadow-md hover:bg-primary-dark transition-all duration-300">Donate</a>
             </nav>
 
-            <a href="" class="px-7 py-2 rounded-md text-white font-medium text-sm bg-primary">Donate</a>
+            <!-- Mobile Menu Toggle (Hamburger) -->
+            <button class="md:hidden text-gray-600 focus:outline-none" id="menu-toggle">
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (hidden by default) -->
+        <div class="md:hidden bg-white shadow-md w-full p-5 space-y-4" id="mobile-menu" style="display: none;">
+            <ul class="flex flex-col items-start space-y-4 text-lg font-medium text-gray-700">
+                <li><a href="#" class="hover:text-primary transition-all duration-300">Home</a></li>
+                <li><a href="#about" class="hover:text-primary transition-all duration-300">About Us</a></li>
+                <li><a href="#gallery" class="hover:text-primary transition-all duration-300">Gallery</a></li>
+                <li><a href="#contact" class="hover:text-primary transition-all duration-300">Contact Us</a></li>
+                <li><a href="{% url 'accounts:login' %}"
+                        class="hover:text-primary transition-all duration-300">Login</a></li>
+            </ul>
+            <a href="#"
+                class="block px-6 py-2 text-sm font-semibold text-white bg-primary rounded-lg shadow-md hover:bg-primary-dark transition-all duration-300">Donate</a>
         </div>
     </header>
+
+
 
     {% block content %}
     {% endblock content %}
 
-    <footer class="footer">
-        <div class="top-section">
-            <div class="abouts">
-                <h3>NEWSLETTER SUBSCRIBE</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut elit vel ligula.</p>
-            </div>
-            <div class="search-box">
-                <input type="text" placeholder="Email">
-                <button>Send</button>
-            </div>
-            <div class="social-media">
-                <a href="#" class="social-icon"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-        <div class="bottom-section">
-            <div class="logo">
-                <img src="./webpage/img/logo.png" alt="Logo">
-            </div>
-            <div class="footer-list">
-                <h4>PHONE AND EMAIL</h4>
-                <div class="para">
-                    <p>helloumahia@gmail.com</p>
-                    <p>+234 8066 008 669</p>
+    <footer class="bg-gray-900 text-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <!-- Top Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Newsletter -->
+                <div class="space-y-4">
+                    <h3 class="text-white font-bold text-lg mb-4">NEWSLETTER SUBSCRIBE</h3>
+                    <p class="text-gray-400">Stay updated with our latest news and updates.</p>
+                    <div class="flex gap-2 mt-4">
+                        <input type="email" placeholder="Enter your email"
+                            class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500">
+                        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            Send
+                        </button>
+                    </div>
                 </div>
-                <div class="btn">
-                    <button>Donate</button>
+
+                <!-- Social Media -->
+                <div class="flex flex-col items-center md:items-end space-y-4">
+                    <h3 class="text-white font-bold text-lg mb-4">FOLLOW US</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="p-2 bg-gray-800 rounded-full hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-facebook text-lg w-6 h-6 text-center"></i>
+                        </a>
+                        <a href="#" class="p-2 bg-gray-800 rounded-full hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-twitter text-lg w-6 h-6 text-center"></i>
+                        </a>
+                        <a href="#" class="p-2 bg-gray-800 rounded-full hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-instagram text-lg w-6 h-6 text-center"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="nav-links">
-                <h4>PAGES</h4>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="./webpage/Auth/signin.html">Login</a></li>
-                </ul>
+
+            <!-- Bottom Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8 border-t border-gray-800">
+                <!-- Logo -->
+                <div class="flex justify-center md:justify-start">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo"
+                        class="h-16 w-auto opacity-90 hover:opacity-100 transition-opacity">
+                </div>
+
+                <!-- Contact Info -->
+                <div class="text-center md:text-left space-y-2">
+                    <h4 class="text-white font-semibold mb-2">CONTACT US</h4>
+                    <p class="text-gray-400">helloumahia@gmail.com</p>
+                    <p class="text-gray-400">+234 8066 008 669</p>
+                    <button
+                        class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Donate
+                    </button>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="text-center md:text-right">
+                    <h4 class="text-white font-semibold mb-4">QUICK LINKS</h4>
+                    <nav class="flex flex-col space-y-2">
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">Home</a>
+                        <a href="#about" class="text-gray-400 hover:text-blue-500 transition-colors">About</a>
+                        <a href="#gallery" class="text-gray-400 hover:text-blue-500 transition-colors">Gallery</a>
+                        <a href="#contact" class="text-gray-400 hover:text-blue-500 transition-colors">Contact</a>
+                        <a href="{% url 'accounts:login' %}"
+                            class="text-gray-400 hover:text-blue-500 transition-colors">Login</a>
+                    </nav>
+                </div>
             </div>
-        </div>
-        <div class="last">
-            <h4>copyright 2024. all rights reserved</h4>
+
+            <!-- Copyright -->
+            <div class="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
+                <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+            </div>
         </div>
     </footer>
+
+    <script>
+        // Toggle mobile menu visibility
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
+                mobileMenu.style.display = 'block';
+            } else {
+                mobileMenu.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 
 </html>

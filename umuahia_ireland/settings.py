@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 from pathlib import Path
 from .config import (
     SECRET_KEY,
@@ -82,6 +83,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=os.getenv(
+#             "DATABASE_URL",
+#             "postgresql://umuahiadb_user:mkbdjPKor0UIujt3uzAmCl3zbJmksarX@dpg-cv6migtumphs738btq4g-a.oregon-postgres.render.com/umuahiadb",
+#         ),
+#         conn_max_age=600,
+#         ssl_require=True,  # Render requires SSL for connections
+#     )
+# }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -109,9 +121,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR / "static"),)
-
-if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR / "staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR / "staticfiles")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR / "media")

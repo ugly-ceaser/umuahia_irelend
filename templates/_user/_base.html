@@ -30,12 +30,26 @@
                             <span>Profile</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{% url 'user:minuites' %}"
+                            class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-white transition duration-200 font-medium">
+                            <i class="fas fa-users"></i>
+                            <span>Minuites</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
 
             <!-- Bottom Links Section -->
             <div class="mt-8">
                 <ul class="space-y-2">
+                    <li>
+                        <a href="{% url 'user:settings' %}"
+                            class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-white transition duration-200 font-medium">
+                            <i class="fas fa-users"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{% url 'accounts:logout' %}"
                             class="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-700 hover:bg-red-800 text-white font-bold transition duration-200">

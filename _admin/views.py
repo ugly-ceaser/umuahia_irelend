@@ -73,13 +73,13 @@ def dashboard_member(request):
 def create_minutes(request):
     title = request.POST.get("title")
     date = request.POST.get("date")
-    description = request.POST.get("description", "")
+    minutes = request.POST.get("minutes", "")
 
     if not title or not date:
         messages.error(request, "Title and Date are required.")
         return redirect(reverse("admin:minuites"))
 
-    Minuites.objects.create(title=title, date=date, description=description)
+    Minuites.objects.create(title=title, date=date, minuites=minutes)
 
     messages.success(request, "Minutes created successfully.")
     return redirect(reverse("admin:minuites"))

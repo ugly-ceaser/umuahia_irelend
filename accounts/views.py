@@ -25,7 +25,7 @@ def validation_required(view_func):
         if request.user.is_authenticated:
             if request.user.is_superuser or request.user.is_staff:
                 return redirect(reverse("admin:dashboard_members"))
-            return redirect(reverse("dashboard:dashboard"))
+            return redirect(reverse("user:dashboard"))
         # If all checks pass, call the view function
         return view_func(request, *args, **kwargs)
 

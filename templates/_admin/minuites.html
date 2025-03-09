@@ -1,7 +1,7 @@
 {% extends './_base.html' %}
 {% load static %}
 
-{% block page_title %}Member Management{% endblock page_title %}
+{% block page_title %}Minuites Management{% endblock page_title %}
 
 {% block content %}
 
@@ -43,17 +43,6 @@
                 <td>{{ minuite.title }}</td>
                 <td>{{ minuite.date|date:"n/j/Y" }}</td>
                 <td>{{ minuite.created_at|date:"n/j/Y" }}</td>
-                <td>
-                    <div class="action-menu">
-                        <i class="ti ti-dots-vertical cursor-pointer toggle-menu"></i>
-                        <ul class="action-list hidden">
-                            <li class="delete-user">Delete User</li>
-                            <li class="deactivate-user">Deactivate User</li>
-                            <li class="view-profile">View Profile</li>
-                            <li class="flag-star">Flag/Star User</li>
-                        </ul>
-                    </div>
-                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -92,9 +81,8 @@
             </div>
 
             <div>
-                <label for="minutesDescription" class="block text-sm font-medium text-gray-700">Minutes
-                    Description</label>
-                <textarea id="minutesDescription" placeholder="Type here" name="description"
+                <label for="minutesDescription" class="block text-sm font-medium text-gray-700">Minutes</label>
+                <textarea id="minutesDescription" placeholder="Type here" name="minutes"
                     class="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none h-28"></textarea>
             </div>
 
@@ -173,20 +161,6 @@
             }
         });
 
-        form?.addEventListener("submit", function (event) {
-
-            const title = document.getElementById("minutesTitle").value.trim();
-            const date = document.getElementById("minutesDate").value.trim();
-
-            if (!title || !date) {
-                showToast("Error", "Please fill in all required fields!", false);
-                return;
-            }
-
-            setTimeout(() => {
-                closeModal();
-            }, 2000);
-        });
     });
 </script>
 {% endblock content %}

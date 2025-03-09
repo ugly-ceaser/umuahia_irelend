@@ -16,11 +16,11 @@
 <body>
     <div class="w-full flex items-center gap-2 md:flex-row flex-col h-screen bg-[#F5F5F5]">
         <!-- Left Image -->
-        <div class="md:w-1/2 w-full h-full p-2 bg-white">
+        <div class="md:w-1/2 w-full md:h-full h-[200px] p-2 bg-white">
             <img src="{% static 'img/auth-img.png' %}" alt="" class="w-full h-full object-cover rounded-md">
         </div>
 
-        <div class="w-1/2 h-full flex items-center justify-center">
+        <div class="w-full md:w-1/2 h-full flex items-center justify-center">
             {% block content %}
             {% endblock content %}
         </div>
